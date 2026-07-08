@@ -1,5 +1,13 @@
 #include <stdio.h>
+#include <stdint.h>
+#include <signal.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/time.h>
+#include <sys/types.h>
+#include <sys/termios.h>
+#include <sys/mman.h>
 
 
 // We shall keep the max memory to be 16-bit
