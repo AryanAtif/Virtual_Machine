@@ -39,7 +39,29 @@ enum
   OP_C13,
   OP_C14,
   OP_C15,
-}
+};
+
+/*
+ * Condition Flags
+ *    - There are 3 condition flags
+ */
+
+enum 
+{
+  POS_F = 1 << 0;  // x x 1
+  ZRO_F = 1 << 1;  // x 1 x
+  NEG_F = 1 << 2;  // 1 x x
+};
+
+
+
+
+
+
+
+
+
+
 
 
 
