@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <stdlib.h>
+
 
 // We shall keep the max memory to be 16-bit
 #define MEMORY_CAPACITY (1 << 16)
@@ -23,22 +26,22 @@ unint16_t* COND = malloc (sizeof (unint16_t));
 
 enum 
 {
-  OP_C0 = 0,
-  OP_C1,
-  OP_C2,
-  OP_C3,
-  OP_C4,
-  OP_C5,
-  OP_C6,
-  OP_C7,
-  OP_C8,
-  OP_C9,
-  OP_C10,
-  OP_C11,
-  OP_C12,
-  OP_C13,
-  OP_C14,
-  OP_C15,
+  OP_BR = 0,  // Branch
+  OP_ADD,     // Add
+  OP_LD,      // Load
+  OP_ST,      // Store
+  OP_JSR,     // Jump Register 
+  OP_AND,     // Bitwise And 
+  OP_LDR,     // Load Register 
+  OP_STR,     // Store Register 
+  OP_RTI,     // unused
+  OP_NOT,     // Bitwise NOT
+  OP_LDI,     // Load indirect 
+  OP_STI,     // Store indirect
+  OP_JMP,     // Jump
+  OP_RES,     // Reserved
+  OP_LEA,     // Load effective address
+  OP_TRAP,    // Execute Trap
 };
 
 /*
