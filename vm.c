@@ -57,15 +57,84 @@ enum
 };
 
 
+int main ()
+{
+  // load the instruction in the register
+  
+  // Set the Zero conidition flag 
+  *COND = ZRO_F;
 
+  // Set the PC to 0x3000, it will be its starting position
+  *PC = 0x3000;
 
+  whlie (1)
+  {
+    unint16_t instruction = mem_read ((*PC) + 1); // read the next instruction in the program counter
+    
+    switch (instruction)
+    {
+      case OP_BR:
+        // OP_BR
+        break;
+      
+      case OP_ADD:
+        // OP_ADD 
+        break;
+      
+      case OP_LD:
+        // OP_LD 
+        break;
+      
+      case OP_ST:
+        // OP_ST 
+        break;
+      
+      case OP_JSR:
+        // OP_JSR 
+        break;
+      
+      case OP_AND:
+        // OP_AND
+        break;
+      
+      case OP_LDR:
+        // OP_LDR
+        break;
+      
+      case OP_STR:
+        // OP_STR
+        break;
+      
+      case OP_NOT:
+        // OP_NOT
+        break;
+      
+      case OP_LDI:
+        // OP_LDI
+        break;
+      
+      case OP_STI:
+        // OP_STI
+      
+      case OP_JMP:
+        // OP_JMP
+        break;
+      
+      case OP_LEA:
+        // OP_LEA
+        break;
+      
+      case OP_TRAP:
+        // OP_LEA
+        break;
+      
+      case OP_RES: /* The reserved OPCODES */
+      case OP_RTI: 
+      default:
+        
+        break;
+      
+    }
+  }
 
-
-
-
-
-
-
-
-
-
+}
