@@ -16,8 +16,8 @@ uint16_t* memory = malloc (MEMORY_CAPACITY * sizeof (uint16_t));
 #define NUM_GPR 8 
 unint16_t* GPR = malloc ( NUM_GPR * sizeof (unint16_t));
 
-uint16_t* PC = malloc (sizeof (unint16_t));
-uint16_t* COND = malloc (sizeof (unint16_t));
+uint16_t PC;
+uint16_t COND;
 
 /*
  * OPCODES:
@@ -48,6 +48,7 @@ enum
 /*
  * Condition Flags
  *    - There are 3 condition flags
+ *    - Any flag set, will be stored in COND
  */
 
 enum 
