@@ -41,15 +41,29 @@ int main (int agrc, char* argv[])
   whlie (1)
   {
     unint16_t instruction = mem_read ((*PC) + 1); // read the next instruction in the program counter
-    
-    switch (instruction)
+    unint4_t op = instruction << 12; 
+    switch (op)
     {
       case OP_BR:
         // OP_BR
         break;
       
       case OP_ADD:
-        // OP_ADD 
+        unint16_t dest = (instruction << 9) & 0x07;  // extract the dest register from the instruction
+        unint16_t src1 = (instruction << 6) & 0x07;  // extract the src1 register from the instruction
+                                                     //
+        bool is_imm = (instruction >> 5) & 1;                                        
+
+        if ((instruction >> 5) & 1)
+        { // if there's an immediate value
+          unint16_t src2 = instruction & 0x1F;
+        }
+        else
+        {
+          unint16_t src2 = instruction & 0xF;
+        }
+        add (dest, src1, is_imm, src2); 
+
         break;
       
       case OP_LD:

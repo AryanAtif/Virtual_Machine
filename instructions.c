@@ -33,3 +33,27 @@ void set_flag (uint16_t reg)
     COND = POS_F;
   }
 }
+
+/*
+ * =============
+ * Instructions
+ * =============
+ */
+
+void add (uint16_t dest, uint16_t src1, bool is_imm, uint16_t src2)
+{
+
+  GPR [src1] = sign_extend (GPR[src1], 5);
+
+  if (is_imm) // if src2 is an immediate value
+  {
+    GPR[dest] = GPR[src1] + src2; 
+  }
+  else 
+  {
+    GPR [src2] = sign_extend (GPR[src2], 5);
+    GPR[dest] = GPR [src1] + GPR[src2];
+  }
+
+  set_flag[dest];
+}
