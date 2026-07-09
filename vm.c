@@ -65,8 +65,25 @@ enum
 };
 
 
-int main ()
+int main (int agrc, char* argv[])
 {
+  if (agrc < 2)
+  {
+    printf ("Usage: vm [image-file] ... \n");
+    exit (2);
+  }
+  else 
+  {
+    for (int j = 1; j < argc, j++)
+    {
+      if (!read_image(agrv[j]))
+      {
+        printf ("Failed to load image %s\n", argv[j]);
+        exit(1);
+      }
+    }
+  }
+
   // load the instruction in the register
   
   // Set the Zero conidition flag 
