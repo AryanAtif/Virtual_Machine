@@ -71,7 +71,7 @@ void ldi (uint16_t instruction)
 
   int mem_to_read = mem_read(PC + pc_offset);
 
-  dest = mem_read (mem_to_read); // mem_to_read is itself an address to a value
+  GPR [dest] = mem_read (mem_to_read); // mem_to_read is itself an address to a value
 
   set_flag(dest);
 }
@@ -87,7 +87,7 @@ void ld (uint16_t instruction)
 
   int to_read = mem_read(PC + pc_offset);
 
-  dest = to_read; 
+  GPR[dest] = to_read; 
 
   set_flag(dest);
 
