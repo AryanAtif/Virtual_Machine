@@ -24,7 +24,7 @@ void ld (uint16_t instruction);                                  /* read the val
 
 void br (uint16_t instruction);                                 /* Branch out if the flag given in the instruction is set in the program*/
 
-  
+void st (uint16_t instruction);                                 /* store the value to PC + PCOFFSET9 from src1 */  
 
 #endif
 
