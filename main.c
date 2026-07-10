@@ -71,7 +71,7 @@ int main (int argc, char* argv[])
         break;
       
       case OP_LD:
-        // OP_LD 
+        ld (instruction); 
         break;
       
       case OP_ST:

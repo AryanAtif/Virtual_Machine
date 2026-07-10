@@ -76,6 +76,23 @@ void ldi (uint16_t instruction)
   set_flag(dest);
 }
 
+void ld (uint16_t instruction)
+{
+  uint16_t dest = (instruction >> 9) & 0x7;
+  // Get PCOFFSET9
+  uint16_t pc_offset = instruction & 0x1FF; 
+
+  // we need to sign extend pcoffset (9-bit) to 16-bits
+  pc_offset = sign_extend(pc_offset, 16);
+
+  int to_read = mem_read(PC + pc_offset);
+
+  dest = to_read; 
+
+  set_flag(dest);
+
+}
+
 void br (uint16_t instruction)
 {
   uint16_t flag_given = (instruction >> 9) & 0x7;
