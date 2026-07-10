@@ -19,7 +19,10 @@ void add (uint16_t dest, uint16_t src1, bool is_imm, uint16_t src2); /* Add src1
                                                                      */
 
 void ldi (uint16_t instruction);                                     /* read the value stored in PC + PCOFFSET9 into dest register */
- 
+
+void br (uint16_t instruction);                                      /* Branch out if the flag given in the instruction is set in the program*/
+
+  
 
 #endif
 

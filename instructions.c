@@ -64,14 +64,35 @@ void ldi (uint16_t instruction)
   // Get the destination register
   uint16_t dest = (instruction >> 9) & 0x7;
   // Get PCOFFSET9
-  uint16_t pcoffset = instruction & 0x1FF; 
+  uint16_t pc_offset = instruction & 0x1FF; 
 
   // we need to sign extend pcoffset (9-bit) to 16-bits
-  pcoffset = sign_extend(pcoffset, 16);
+  pc_offset = sign_extend(pc_offset, 16);
 
-  int mem_to_read = mem_read(PC + pcoffset);
+  int mem_to_read = mem_read(PC + pc_offset);
 
   dest = mem_read (mem_to_read); // mem_to_read is itself an address to a value
+
+  set_flag(dest);
+}
+
+void br (uint16_t instruction)
+{
+  uint16_t flag_given = (instruction >> 9) & 0x7;
+  // 100 = n
+  // 010 = p
+  // 001 = z
+  // 000 = none, return
+
+  bool is_flag_set = ((flag_given == 0b100) & NEG_F) || ((flag_given == 0b010) & POS_F) || ((flag_given == 0b001) & ZRO_F);
+
+  if (is_flag_set)
+  {
+    uint16_t pc_offset = instruction & 0x1FF;
+    pc_offset = sign_extend(pc_offset, 16);
+
+    PC = pc_offset;
+  }
 }
 
 
