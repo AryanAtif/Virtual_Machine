@@ -1,6 +1,7 @@
 #include <stdint.h>
 
-#include "vm.h"
+#include "arch.h"
+#include "instructions.h"
 
 // See vm.h for the description of each of the functions defined in this file
 
@@ -55,5 +56,5 @@ void add (uint16_t dest, uint16_t src1, bool is_imm, uint16_t src2)
     GPR[dest] = GPR [src1] + GPR[src2];
   }
 
-  set_flag[dest];
+  set_flag(dest);
 }

@@ -1,12 +1,9 @@
 #include <stdint.h>
-#include <stdlib.h>
-
-#include "vm.h"
 
 // We shall keep the max memory to be 16-bit
-#define MEMORY_CAPACITY (1 << 16)
+#define MAX_MEMORY (1 << 16)
 
-uint16_t* memory = malloc (MEMORY_CAPACITY * sizeof (uint16_t));
+uint16_t memory [MAX_MEMORY];
 
 /*
  * Registers:
@@ -14,8 +11,7 @@ uint16_t* memory = malloc (MEMORY_CAPACITY * sizeof (uint16_t));
  *    - Each register is 16-bit long
  */
 #define NUM_GPR 8 
-unint16_t* GPR = malloc ( NUM_GPR * sizeof (unint16_t));
-
+uint16_t GPR [NUM_GPR];
 uint16_t PC;
 uint16_t COND;
 
@@ -55,5 +51,5 @@ enum
 {
   POS_F = 1 << 0,  // x x 1
   ZRO_F = 1 << 1,  // x 1 x
-  NEG_F = 1 << 2;  // 1 x x
+  NEG_F = 1 << 2,  // 1 x x
 };
