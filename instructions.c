@@ -82,7 +82,7 @@ void br (uint16_t instruction)
   // 100 = n
   // 010 = p
   // 001 = z
-  // 000 = none, return
+  // 000 = branch out unconditionaly  
 
   bool is_flag_set = ((flag_given == 0b100) & NEG_F) || ((flag_given == 0b010) & POS_F) || ((flag_given == 0b001) & ZRO_F);
 
@@ -93,6 +93,11 @@ void br (uint16_t instruction)
 
     PC = pc_offset;
   }
+  else if (flag_given == 0b000)
+  {
+    PC++;
+  }
+
 }
 
 
