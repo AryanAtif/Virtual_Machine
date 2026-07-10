@@ -3,7 +3,7 @@
 #include "arch.h"
 #include "instructions.h"
 
-// See vm.h for the description of each of the functions defined in this file
+// See instructions.h for the description of each of the functions defined in this file
 
 /* =================
  * Helper Functions
@@ -58,3 +58,20 @@ void add (uint16_t dest, uint16_t src1, bool is_imm, uint16_t src2)
 
   set_flag(dest);
 }
+
+void ldi (uint16_t instruction) 
+{
+  // Get the destination register
+  uint16_t dest = (instruction >> 9) & 0x7;
+  // Get PCOFFSET9
+  uint16_t pcoffset = instruction & 0x1FF; 
+
+  // we need to sign extend pcoffset (9-bit) to 16-bits
+  pcoffset = sign_extend(pcoffset, 16);
+
+  int mem_to_read = mem_read(PC + pcoffset);
+
+  dest = mem_read (mem_to_read); // mem_to_read is itself an address to a value
+}
+
+
