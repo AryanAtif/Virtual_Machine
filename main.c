@@ -99,7 +99,7 @@ int main (int argc, char* argv[])
         break;
       
       case OP_LDI:
-        // OP_LDI
+        ldi (instruction);
         break;
       
       case OP_STI:
@@ -120,7 +120,7 @@ int main (int argc, char* argv[])
       case OP_RES: /* The reserved OPCODES */
       case OP_RTI: 
       default:
-        
+        abort(); 
         break;
       
     }
