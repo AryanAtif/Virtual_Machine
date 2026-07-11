@@ -146,7 +146,6 @@ void st (uint16_t instruction)
 
 void str (uint16_t instruction)
 {
-  
   uint16_t src1 = (instruction >> 9) & 0x7;
   uint16_t base_r = (instruction >> 6) & 0x7;
   uint16_t offset = instruction & 0x3F;
@@ -154,6 +153,20 @@ void str (uint16_t instruction)
   offset = sign_extend(offset, 16);
 
   mem_read (GPR[base_register] + offset) = GPR[src1];
+  set_flag(src);
+}
+
+void sti (uint16_t instructions)
+{
+  uint16_t src = (instruction >> 9) & 0x7;
+  uint16_t pc_offset = instruction & 0x1FF; 
+
+  pc_offset = sign_extend(pc_offset, 16);
+
+  int mem_to_read = mem_read(PC + pc_offset);
+
+  mem_read (mem_to_read) = GPR[src]; 
+
   set_flag(src);
 }
 
