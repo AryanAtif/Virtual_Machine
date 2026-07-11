@@ -105,8 +105,9 @@ int main (int argc, char* argv[])
       case OP_STI:
         sti (instruction);
         break;
+
       case OP_JMP:
-        // OP_JMP
+        jmp (instruction);
         break;
       
       case OP_LEA:

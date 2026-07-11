@@ -35,7 +35,9 @@ void sti (uint16_t instruction);                                 /* store the va
 void jsr (uint16_t instruction);                                 /* Jump to subroutine. if given a pcoffset of 11-bits, the PC will be modified to 
                                                                   * PC = PC + PC_OFFSET11. but if given a base register of 3-bits, the PC will be 
                                                                   * modified to PC = base_register 
-                                                                  * */  
+                                                                  */
+
+void jmp (uint16_t instruction);                                  /* Jump to subroutine given by the base register */
 
 void and (uint16_t instruction);                                 /* store the logical AND result of src1 and src2 registers (or an immediate value,
                                                                   * instead of the src2 register) inside the dest register

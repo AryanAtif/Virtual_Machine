@@ -187,6 +187,12 @@ void jsr (uint16_t instruction)
  }
 }
 
+void jmp (uint16_t instructions)
+{
+  uint16_t base_r =  (instruction >> 6) & 0x7;
+  PC = GPR[base_r];
+}
+
 void and (uint16_t instruction)
 {
  uint16_t dest = (instruction >> 9) & 0x7;
