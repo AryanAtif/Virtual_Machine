@@ -128,3 +128,21 @@ void st (uint16_t instruction)
   mem_read (PC + pc_offset) = GPR[src1];
 }
 
+void jsr (uint16_t instruction)
+{
+ bool is_label = (instruction >> 11) & 0x1;
+
+ if (is_label)
+ {
+    uint16_t pc_offset = instruction & 0x7FF;
+    pc_offset = sign_extend(pc_offset, 16);
+    PC = PC + pc_offset;
+ }
+ else 
+ {
+   uint16_t base_r = (instruction >> 6) & 0x7;
+   PC = base_r;
+ }
+}
+
+

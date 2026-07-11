@@ -79,7 +79,7 @@ int main (int argc, char* argv[])
         break;
       
       case OP_JSR:
-        // OP_JSR 
+        jsr (instruction); 
         break;
       
       case OP_AND:

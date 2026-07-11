@@ -26,5 +26,10 @@ void br (uint16_t instruction);                                 /* Branch out if
 
 void st (uint16_t instruction);                                 /* store the value to PC + PCOFFSET9 from src1 */  
 
+void jsr (uint16_t instruction);                                 /* Jump to subroutine. if given a pcoffset of 11-bits, the PC will be modified to 
+                                                                  * PC = PC + PC_OFFSET11. but if given a base register of 3-bits, the PC will be 
+                                                                  * modified to PC = base_register 
+                                                                  * */  
+
 #endif
 
