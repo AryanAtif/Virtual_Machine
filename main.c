@@ -115,7 +115,7 @@ int main (int argc, char* argv[])
         break;
       
       case OP_TRAP:
-        // OP_LEA
+        trap (instruction); 
         break;
       
       case OP_RES: /* The reserved OPCODES */

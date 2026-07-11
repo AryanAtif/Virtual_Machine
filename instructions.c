@@ -196,10 +196,20 @@ void jsr (uint16_t instruction)
  }
 }
 
-void jmp (uint16_t instructions)
+void jmp (uint16_t instruction)
 {
   uint16_t base_r =  (instruction >> 6) & 0x7;
   PC = GPR[base_r];
+}
+
+void trap (uint16_t instruction)
+{
+  trap_vect = instruction & 0xFF;
+
+  trap_vect = sign_extend (trap_vect, 16);
+
+  GPR[7] = PC;  
+  PC = mem_read(trap_vect);
 }
 
 void and (uint16_t instruction)
