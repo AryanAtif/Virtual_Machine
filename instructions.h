@@ -22,6 +22,8 @@ void ldi (uint16_t instruction);                                 /* read the val
 
 void ld (uint16_t instruction);                                  /* read the value stored in PC + PCOFFSET9 into dest register */
 
+void ldr (uint16_t instruction);                                /* read the value stored in the base register + OFFSE9 into dest register */
+
 void br (uint16_t instruction);                                 /* Branch out if the flag given in the instruction is set in the program*/
 
 void st (uint16_t instruction);                                 /* store the value to PC + PCOFFSET9 from src1 */  

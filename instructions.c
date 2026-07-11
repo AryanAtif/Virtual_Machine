@@ -93,6 +93,20 @@ void ld (uint16_t instruction)
 
 }
 
+void ldr (uint16_t instruction)
+{
+  uint16_t dest = (instruction >> 9) & 0x7;
+  uint16_t base_r = (instruction >> 6) & 0x7;
+  uint16_t offset = instruction & 0x3F; 
+
+  offset = sign_extend(offset, 16);
+
+  GPR[dest] = mem_read (GPR[base_r] + offset);
+
+  set_flag(dest);
+
+}
+
 void br (uint16_t instruction)
 {
   uint16_t flag_given = (instruction >> 9) & 0x7;
@@ -141,7 +155,7 @@ void jsr (uint16_t instruction)
  else 
  {
    uint16_t base_r = (instruction >> 6) & 0x7;
-   PC = base_r;
+   PC = GPR[base_r];
  }
 }
 
