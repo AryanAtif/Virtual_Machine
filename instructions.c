@@ -41,8 +41,22 @@ void set_flag (uint16_t reg)
  * =============
  */
 
-void add (uint16_t dest, uint16_t src1, bool is_imm, uint16_t src2)
+void add (uint16_t instruction)
 {
+  uint16_t dest = (instruction << 9) & 0x07;  // extract the dest register from the instruction
+  uint16_t src1 = (instruction << 6) & 0x07;  // extract the src1 register from the instruction
+                                               
+  bool is_imm = (instruction >> 5) & 1;                                        
+  uint16_t src2;
+
+  if ((instruction >> 5) & 1)
+  { // if there's an immediate value
+    src2 = instruction & 0x1F;
+  }
+  else
+  {
+    src2 = instruction & 0xF;
+  }
 
   GPR [src1] = sign_extend (GPR[src1], 5);
 

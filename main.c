@@ -52,22 +52,7 @@ int main (int argc, char* argv[])
         break;
       
       case OP_ADD:
-        uint16_t dest = (instruction << 9) & 0x07;  // extract the dest register from the instruction
-        uint16_t src1 = (instruction << 6) & 0x07;  // extract the src1 register from the instruction
-                                                     
-        bool is_imm = (instruction >> 5) & 1;                                        
-        uint16_t src2;
-
-        if ((instruction >> 5) & 1)
-        { // if there's an immediate value
-          src2 = instruction & 0x1F;
-        }
-        else
-        {
-          src2 = instruction & 0xF;
-        }
-        add (dest, src1, is_imm, src2); 
-
+        and (instruction);
         break;
       
       case OP_LD:
