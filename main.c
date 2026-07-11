@@ -111,7 +111,7 @@ int main (int argc, char* argv[])
         break;
       
       case OP_LEA:
-        // OP_LEA
+        lea (instruction);
         break;
       
       case OP_TRAP:

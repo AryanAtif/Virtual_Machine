@@ -104,7 +104,16 @@ void ldr (uint16_t instruction)
   GPR[dest] = mem_read (GPR[base_r] + offset);
 
   set_flag(dest);
+}
 
+void lea (uint16_t instruction)
+{
+  uint16_t dest = (instruction >> 9) & 0x7;
+  uint16_t pc_offset = instruction & 0x7F; 
+
+  offset = sign_extend(offset, 16);
+
+  GPR[dest] = PC + pc_offset;
 }
 
 void br (uint16_t instruction)
