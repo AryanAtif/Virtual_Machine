@@ -31,5 +31,9 @@ void jsr (uint16_t instruction);                                 /* Jump to subr
                                                                   * modified to PC = base_register 
                                                                   * */  
 
+void and (uint16_t instruction);                                 /* store the logical AND result of src1 and src2 registers (or an immediate value,
+                                                                  * instead of the src2 register) inside the dest register
+                                                                  */
+
 #endif
 

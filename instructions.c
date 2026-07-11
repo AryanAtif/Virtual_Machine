@@ -130,7 +130,7 @@ void st (uint16_t instruction)
 
 void jsr (uint16_t instruction)
 {
- bool is_label = (instruction >> 11) & 0x1;
+ bool is_label = (instruction >> 11) & 1;
 
  if (is_label)
  {
@@ -145,4 +145,23 @@ void jsr (uint16_t instruction)
  }
 }
 
+void and (uint16_t instruction)
+{
+ uint16_t dest = (instruction >> 9) & 0x7;
+ uint16_t src1 = (instruction >> 6) & 0x7;
+
+ if ((instruction >> 5) & 1) // if there's an immediate value in the instruction
+ {
+   uint16_t imm = instruction & 0x1F;
+   GPR[dest] = GPR[src1] & imm; 
+ }
+ else
+ {
+   uint16_t src2 = instruction & 0x7;
+   GPR[dest] = GPR[src1] & GPR[src2]; 
+ }
+ 
+ set_flag (dest);
+
+}
 

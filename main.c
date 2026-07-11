@@ -83,7 +83,7 @@ int main (int argc, char* argv[])
         break;
       
       case OP_AND:
-        // OP_AND
+        and (instruction);
         break;
       
       case OP_LDR:
