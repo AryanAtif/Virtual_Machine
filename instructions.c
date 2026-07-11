@@ -194,3 +194,13 @@ void and (uint16_t instruction)
 
 }
 
+void not (uint16_t instructions)
+{
+   uint16_t dest = (instruction >> 9) & 0x7;
+   uint16_t src = (instruction >> 6) & 0x7;
+
+   GPR[dest] = ~GPR[src];
+
+   set_flag(dest);
+}
+

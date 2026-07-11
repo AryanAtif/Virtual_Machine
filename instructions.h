@@ -38,6 +38,8 @@ void jsr (uint16_t instruction);                                 /* Jump to subr
 void and (uint16_t instruction);                                 /* store the logical AND result of src1 and src2 registers (or an immediate value,
                                                                   * instead of the src2 register) inside the dest register
                                                                   */
+       
+void not (uint16_t instruction);                                 /* store the logical NOT of the src register in the dest*/
 
 #endif
 
