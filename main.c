@@ -91,7 +91,7 @@ int main (int argc, char* argv[])
         break;
       
       case OP_STR:
-        // OP_STR
+        str (instruction); 
         break;
       
       case OP_NOT:

@@ -140,6 +140,21 @@ void st (uint16_t instruction)
   pc_offset = sign_extend(pc_offset, 16);
 
   mem_read (PC + pc_offset) = GPR[src1];
+
+  set_flag(src);
+}
+
+void str (uint16_t instruction)
+{
+  
+  uint16_t src1 = (instruction >> 9) & 0x7;
+  uint16_t base_r = (instruction >> 6) & 0x7;
+  uint16_t offset = instruction & 0x3F;
+
+  offset = sign_extend(offset, 16);
+
+  mem_read (GPR[base_register] + offset) = GPR[src1];
+  set_flag(src);
 }
 
 void jsr (uint16_t instruction)
