@@ -103,7 +103,7 @@ int main (int argc, char* argv[])
 		switch (instruction & 0xff)
 		{
 		  case TRAP_GETC:
-
+		
 		    break;
 
 		  case TRAP_OUT:
@@ -111,7 +111,7 @@ int main (int argc, char* argv[])
 		    break;
 
 		  case TRAP_PUTS:
-
+		    trap_puts();
 		    break;
 
 		  case TRAP_IN:

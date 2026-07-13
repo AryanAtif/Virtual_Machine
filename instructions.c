@@ -256,3 +256,22 @@ void not (uint16_t instructions)
    set_flag(dest);
 }
 
+/*
+ * ======================
+ * Trap Routines
+ * ====================== 
+ */
+
+void trap_puts ()
+{
+  uint16_t *c = memory + GPR[0];
+
+  while (*c) // Print all characters from the first memory location pointed to by R0 (GPR[0]) until we hit the wall (\0)
+  {
+    putc ((char)*c, stdout);
+	c++; 
+  }
+  fflush(stdout);
+}
+
+
