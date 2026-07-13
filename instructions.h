@@ -58,5 +58,9 @@ void trap_puts();                                               /* Output an ASC
 
 void trap_in();                                               /* Read a char into R0, echo it to the terminal */
 
+void trap_putsp ();                                             /* Output the ASCII string stored in the consecutive memory locations starting from
+                                                                 * the location pointed by R0. 
+																 */
+
 #endif
 

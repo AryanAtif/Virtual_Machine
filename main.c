@@ -119,7 +119,7 @@ int main (int argc, char* argv[])
 		    break;
 
 		  case TRAP_PUTSP:
-
+		    trap_putsp();
 		    break;
 
 		  case TRAP_HALT:

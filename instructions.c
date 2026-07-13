@@ -266,6 +266,7 @@ void trap_getc ()
 {
   GPR[0] = (uint16_t) getchar();
   GPR[0] = GPR[0] & 0xff; // the high eight bits are to be cleared to not let the garbage affect the ASCII value of the entered char
+  set_flag (0);
 }
 
 void trap_out ()
@@ -287,7 +288,27 @@ void trap_puts ()
 
 void trap_in ()
 {
+  printf ("Enter a character: ");
   trap_getc();
   trap_out();
+  set_flag (0);
 }
+
+void trap_putsp()
+{
+  uint16_t *c = memory + GPR[0];
+  uint16_t *c1 = *c & 0xFF;
+  uint16_t *c2 = *c >> 8;
+
+  while (*c) 
+  {
+    char c1 = *c & 0xFF;
+    putc (c1, stdout);
+    char c2 = *c >> 8;
+	if (c2) putc (c2, stdout);
+	c++; 
+  }
+  fflush(stdout);
+}
+
 
