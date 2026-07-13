@@ -56,5 +56,7 @@ void trap_out();                                                /* Output the ch
 
 void trap_puts();                                               /* Output an ASCII string stored in the memory location */
 
+void trap_in();                                               /* Read a char into R0, echo it to the terminal */
+
 #endif
 

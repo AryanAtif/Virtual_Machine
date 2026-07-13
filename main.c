@@ -115,7 +115,7 @@ int main (int argc, char* argv[])
 		    break;
 
 		  case TRAP_IN:
-
+		    trap_in();
 		    break;
 
 		  case TRAP_PUTSP:

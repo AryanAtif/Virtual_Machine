@@ -285,3 +285,9 @@ void trap_puts ()
   fflush(stdout);
 }
 
+void trap_in ()
+{
+  trap_getc();
+  trap_out();
+}
+
