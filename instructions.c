@@ -274,4 +274,8 @@ void trap_puts ()
   fflush(stdout);
 }
 
-
+void trap_getc ()
+{
+  GPR[0] = (uint16_t) getchar();
+  GPR[0] = GPR[0] & 0xff; // the high eight bits are to be cleared to not let the garbage affect the ASCII value of the entered char
+}	

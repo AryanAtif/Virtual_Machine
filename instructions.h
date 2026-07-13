@@ -50,7 +50,9 @@ void not (uint16_t instruction);                                 /* store the lo
 
 /* Trap Routines */
 
-void trap_puts();
+void trap_getc();                                               /* Input a char into R0 without echoing it to the terminal */
+
+void trap_puts();                                               /* Output an ASCII string stored in the memory location */
 
 #endif
 
