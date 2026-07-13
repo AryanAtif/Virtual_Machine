@@ -262,6 +262,17 @@ void not (uint16_t instructions)
  * ====================== 
  */
 
+void trap_getc ()
+{
+  GPR[0] = (uint16_t) getchar();
+  GPR[0] = GPR[0] & 0xff; // the high eight bits are to be cleared to not let the garbage affect the ASCII value of the entered char
+}
+
+void trap_out ()
+{
+  putchar(GPR[0]);
+}
+
 void trap_puts ()
 {
   uint16_t *c = memory + GPR[0];
@@ -274,8 +285,3 @@ void trap_puts ()
   fflush(stdout);
 }
 
-void trap_getc ()
-{
-  GPR[0] = (uint16_t) getchar();
-  GPR[0] = GPR[0] & 0xff; // the high eight bits are to be cleared to not let the garbage affect the ASCII value of the entered char
-}	

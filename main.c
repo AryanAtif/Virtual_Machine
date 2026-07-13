@@ -107,7 +107,7 @@ int main (int argc, char* argv[])
 		    break;
 
 		  case TRAP_OUT:
-
+		    trap_out();
 		    break;
 
 		  case TRAP_PUTS:
