@@ -311,4 +311,9 @@ void trap_putsp()
   fflush(stdout);
 }
 
+void trap_halt()
+{
+  printf ("Halting the program... \n");
+  running = 0;
+}
 

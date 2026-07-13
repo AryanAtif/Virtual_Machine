@@ -41,7 +41,9 @@ int main (int argc, char* argv[])
   // Set the PC to 0x3000, it will be its starting position
   PC = 0x3000;
 
-  while (1)
+  int running = 1;
+
+  while (running)
   {
     uint16_t instruction = mem_read (PC + 1); // read the next instruction in the program counter
     uint16_t op = instruction << 12; 
@@ -123,7 +125,7 @@ int main (int argc, char* argv[])
 		    break;
 
 		  case TRAP_HALT:
-
+		    trap_halt();
 		    break;
 		}
         break;

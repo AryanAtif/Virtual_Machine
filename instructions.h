@@ -61,6 +61,7 @@ void trap_in();                                               /* Read a char int
 void trap_putsp ();                                             /* Output the ASCII string stored in the consecutive memory locations starting from
                                                                  * the location pointed by R0. 
 																 */
+void trap_halt();                                               /* halt the program */
 
 #endif
 
