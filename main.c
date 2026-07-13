@@ -80,7 +80,7 @@ int main (int argc, char* argv[])
         break;
       
       case OP_NOT:
-        // OP_NOT
+		not (instruction); 
         break;
       
       case OP_LDI:
@@ -100,7 +100,32 @@ int main (int argc, char* argv[])
         break;
       
       case OP_TRAP:
-        trap (instruction); 
+		switch (instruction & 0xff)
+		{
+		  case TRAP_GETC:
+
+		    break;
+
+		  case TRAP_OUT:
+
+		    break;
+
+		  case TRAP_PUTS:
+
+		    break;
+
+		  case TRAP_IN:
+
+		    break;
+
+		  case TRAP_PUTSP:
+
+		    break;
+
+		  case TRAP_HALT:
+
+		    break;
+		}
         break;
       
       case OP_RES: /* The reserved OPCODES */

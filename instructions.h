@@ -24,7 +24,7 @@ void ld (uint16_t instruction);                                  /* read the val
 
 void ldr (uint16_t instruction);                                /* read the value stored in the base register + OFFSE9 into dest register */
 
-void lea (uint16_t instruction);                                /* read the effective address: PC + PC_OFFSE9 into dest register */
+void lea (uint16_t instruction);                                /* read the effective address: PC + PC_OFFSET9 into dest register */
 
 void br (uint16_t instruction);                                 /* Branch out if the flag given in the instruction is set in the program*/
 
