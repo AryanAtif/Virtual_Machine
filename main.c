@@ -15,7 +15,10 @@
 
 
 void read_image_file (FILE* file);
-int read_image(const char* image_path)
+int read_image(const char* image_path);
+
+uint16_t mem_read (uint16_t address);
+void mem_write (uint16_t address, uint16_t val);
 
 void to_big_endian (uint16_t x);
 
@@ -178,3 +181,25 @@ void to_big_endian (uint16_t x)
 {
   return (x << 8) | (x >> 8);
 }
+
+void mem_write (uint16_t address, uint16_t val)
+{
+  memory[address] = val;
+}
+
+uint16_t mem_read (uint16_t address)
+{
+  if (address == KBSR)
+  {
+    if (check_key())
+    {
+      memory[KBSR] = (1 << 15);
+      memory[KBDR] = getchar();
+    }
+    else
+    {
+      memory[KBSR] = 0;
+    }
+  }
+  return memory[address];}
+
