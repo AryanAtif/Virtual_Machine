@@ -16,6 +16,20 @@ uint16_t PC;
 uint16_t COND;
 
 /*
+ * Memory Mapped Registers
+ *    - Keyboard Status Register 
+ *    - Keyboard Data Register
+ */
+
+enum 
+{
+  KBSR = 0xFE00, // Keyboard status register 
+  KBDR = 0xFE02 // Keyboard data register 
+}
+
+
+
+/*
  * OPCODES:
  *    - There are 16 OPCODES
  *    - Each of which is of 4-bits
