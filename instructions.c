@@ -101,8 +101,8 @@ uint16_t mem_read (uint16_t address)
 
 void add (uint16_t instruction)
 {
-  uint16_t dest = (instruction << 9) & 0x07;  // extract the dest register from the instruction
-  uint16_t src1 = (instruction << 6) & 0x07;  // extract the src1 register from the instruction
+  uint16_t dest = (instruction >> 9) & 0x07;  // extract the dest register from the instruction
+  uint16_t src1 = (instruction >> 6) & 0x07;  // extract the src1 register from the instruction
                                                
   bool is_imm = (instruction >> 5) & 1;                                        
   uint16_t src2;

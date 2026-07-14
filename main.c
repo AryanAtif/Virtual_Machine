@@ -93,7 +93,8 @@ int main (int argc, char* argv[])
   int i = 1;
   while (running)
   {
-    printf ("running for the %d time.\n", i); 
+    printf ("======================\n Status after %d iteration:\n", i); 
+    printf ("R0 = %d or %c\n", GPR[0], GPR[0]); 
     i++;
     uint16_t instruction = mem_read (PC + 1); // read the next instruction in the program counter
     uint16_t op = instruction << 12; 
@@ -185,7 +186,11 @@ int main (int argc, char* argv[])
       default:
         abort(); 
         break;
-      
+    
+    printf ("======================\n Status after %d iteration:\n", i); 
+    printf ("R0 = %d or %c\n", GPR[0], GPR[0]); 
+
+
     } 
   }
   restore_input_buffering(); 
