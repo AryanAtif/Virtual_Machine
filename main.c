@@ -15,6 +15,8 @@
 
 
 void read_image_file (FILE* file);
+void to_big_endian (uint16_t x);
+
 
 int main (int argc, char* argv[])
 {
@@ -148,7 +150,7 @@ void read_image_file (FILE* file)
   
   uint16_t* origin;
   fread (origin, sizeof(origin), 1, file);
-  to_big_endian (origin);
+  to_big_endian (*origin);
 
   uint16_t mem_read = MAX_MEMORY - origin;
   uint16_t* p = memory + origin;
@@ -156,8 +158,12 @@ void read_image_file (FILE* file)
 
   while (mem_read-- > 0)
   {
-    to_big_endian (p);
+    to_big_endian (*p);
     p++;
   }
 }
 
+void to_big_endian (uint16_t x)
+{
+  return (x << 8) | (x >> 8);
+}
