@@ -12,6 +12,20 @@ uint16_t sign_extend(uint16_t x, int bit_count);  /*
 
 void set_flag (uint16_t reg);                     /* Set the condition flag up based on the sign of the value in the reg */
 
+
+
+void read_image_file (FILE* file);
+int read_image(const char* image_path);
+
+uint16_t mem_read (uint16_t address);
+void mem_write (uint16_t address, uint16_t val);
+
+uint16_t to_big_endian (uint16_t x);
+
+
+uint16_t check_key();
+
+
 /* Functions for Instructions */
 void add (uint16_t instruction);                                    /* Add src1 and src2 and store the result in dest. if the instruction contains an 
                                                                      * immediate value, it will be store in the variable src2, not the register

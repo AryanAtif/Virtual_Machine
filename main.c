@@ -43,16 +43,20 @@ uint16_t check_key()
     return select(1, &readfds, NULL, NULL, &timeout) != 0;
 }
 
+
+void handle_interrupt(int signal);
+
 /************************************************************************************************/
 
+// Global Variables
 
-void read_image_file (FILE* file);
-int read_image(const char* image_path);
+int running = 1;
+uint16_t GPR [NUM_GPR];
+uint16_t PC;
+uint16_t COND;
+uint16_t memory [MAX_MEMORY];
 
-uint16_t mem_read (uint16_t address);
-void mem_write (uint16_t address, uint16_t val);
 
-void to_big_endian (uint16_t x);
 
 
 int main (int argc, char* argv[])
@@ -86,10 +90,11 @@ int main (int argc, char* argv[])
   // Set the PC to 0x3000, it will be its starting position
   PC = 0x3000;
 
-  int running = 1;
-
+  int i = 1;
   while (running)
   {
+    printf ("running for the %d time.\n", i); 
+    i++;
     uint16_t instruction = mem_read (PC + 1); // read the next instruction in the program counter
     uint16_t op = instruction << 12; 
     switch (op)
@@ -181,65 +186,10 @@ int main (int argc, char* argv[])
         abort(); 
         break;
       
-    }
+    } 
   }
   restore_input_buffering(); 
 }
-
-void read_image_file (FILE* file)
-{
-  
-  uint16_t* origin;
-  fread (origin, sizeof(origin), 1, file);
-  to_big_endian (*origin);
-
-  uint16_t mem_read = MAX_MEMORY - origin;
-  uint16_t* p = memory + origin;
-  fread (p, sizeof(p), mem_read, file); 
-
-  while (mem_read-- > 0)
-  {
-    to_big_endian (*p);
-    p++;
-  }
-}
-
-int read_image(const char* image_path)
-{
-    FILE* file = fopen(image_path, "rb");
-    if (!file) { return 0; };
-    read_image_file(file);
-    fclose(file);
-    return 1;
-}
-
-void to_big_endian (uint16_t x)
-{
-  return (x << 8) | (x >> 8);
-}
-
-void mem_write (uint16_t address, uint16_t val)
-{
-  memory[address] = val;
-}
-
-uint16_t mem_read (uint16_t address)
-{
-  if (address == KBSR)
-  {
-    if (check_key())
-    {
-      memory[KBSR] = (1 << 15);
-      memory[KBDR] = getchar();
-    }
-    else
-    {
-      memory[KBSR] = 0;
-    }
-  }
-  return memory[address];
-}
-
 
 void handle_interrupt(int signal)
 {

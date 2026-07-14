@@ -1,9 +1,11 @@
 #include <stdint.h>
 
+extern int running; // will be used to tell the main loop to halt/continue 
+
 // We shall keep the max memory to be 16-bit
 #define MAX_MEMORY (1 << 16)
 
-uint16_t memory [MAX_MEMORY];
+extern uint16_t memory [MAX_MEMORY];
 
 /*
  * Registers:
@@ -11,9 +13,9 @@ uint16_t memory [MAX_MEMORY];
  *    - Each register is 16-bit long
  */
 #define NUM_GPR 8 
-uint16_t GPR [NUM_GPR];
-uint16_t PC;
-uint16_t COND;
+extern uint16_t GPR [NUM_GPR];
+extern uint16_t PC;
+extern uint16_t COND;
 
 /*
  * Memory Mapped Registers
@@ -25,7 +27,7 @@ enum
 {
   KBSR = 0xFE00, // Keyboard status register 
   KBDR = 0xFE02 // Keyboard data register 
-}
+};
 
 
 
@@ -67,7 +69,7 @@ enum
   TRAP_IN = 0x23,      // Input a character, echo it to the terminal 
   TRAP_PUTSP = 0x24,   // Print a byte string
   TRAP_HALT = 0x25,    // Halt the program
-}
+};
 
 /*
  * Condition Flags

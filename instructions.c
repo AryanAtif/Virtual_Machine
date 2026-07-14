@@ -1,9 +1,10 @@
 #include <stdint.h>
+#include <stdio.h>
 
 #include "arch.h"
 #include "instructions.h"
 
-// See instructions.h for the description of each of the functions defined in this file
+// See instruction.h for the description of each of the functions defined in this file
 
 /* =================
  * Helper Functions
@@ -34,6 +35,63 @@ void set_flag (uint16_t reg)
     COND = POS_F;
   }
 }
+
+
+void read_image_file (FILE* file)
+{
+  
+  uint16_t origin;
+  fread (&origin, sizeof(origin), 1, file);
+  to_big_endian (origin);
+
+  uint16_t max_read = MAX_MEMORY - origin;
+  uint16_t* p = memory + origin;
+  fread (p, sizeof(p), max_read, file); 
+
+  while (max_read-- > 0)
+  {
+    to_big_endian (*p);
+    p++;
+  }
+}
+
+int read_image(const char* image_path)
+{
+    FILE* file = fopen(image_path, "rb");
+    if (!file) { return 0; };
+    read_image_file(file);
+    fclose(file);
+    return 1;
+}
+
+uint16_t to_big_endian (uint16_t x)
+{
+  return (x << 8) | (x >> 8);
+}
+
+void mem_write (uint16_t address, uint16_t val)
+{
+  memory[address] = val;
+}
+
+uint16_t mem_read (uint16_t address)
+{
+  if (address == KBSR)
+  {
+    if (check_key())
+    {
+      memory[KBSR] = (1 << 15);
+      memory[KBDR] = getchar();
+    }
+    else
+    {
+      memory[KBSR] = 0;
+    }
+  }
+  return memory[address];
+}
+
+
 
 /*
  * =============
@@ -125,7 +183,7 @@ void lea (uint16_t instruction)
   uint16_t dest = (instruction >> 9) & 0x7;
   uint16_t pc_offset = instruction & 0x7F; 
 
-  offset = sign_extend(offset, 16);
+  pc_offset = sign_extend(pc_offset, 16);
 
   GPR[dest] = PC + pc_offset;
 }
@@ -162,9 +220,9 @@ void st (uint16_t instruction)
 
   pc_offset = sign_extend(pc_offset, 16);
 
-  mem_read (PC + pc_offset) = GPR[src1];
+  mem_write (PC + pc_offset,  GPR[src1]);
 
-  set_flag(src);
+  set_flag(src1);
 }
 
 void str (uint16_t instruction)
@@ -175,11 +233,11 @@ void str (uint16_t instruction)
 
   offset = sign_extend(offset, 16);
 
-  mem_read (GPR[base_register] + offset) = GPR[src1];
-  set_flag(src);
+  mem_write (GPR[base_r] + offset,  GPR[src1]);
+  set_flag(src1);
 }
 
-void sti (uint16_t instructions)
+void sti (uint16_t instruction)
 {
   uint16_t src = (instruction >> 9) & 0x7;
   uint16_t pc_offset = instruction & 0x1FF; 
@@ -188,7 +246,7 @@ void sti (uint16_t instructions)
 
   int mem_to_read = mem_read(PC + pc_offset);
 
-  mem_read (mem_to_read) = GPR[src]; 
+  mem_write (mem_to_read,  GPR[src]); 
 
   set_flag(src);
 }
@@ -216,16 +274,6 @@ void jmp (uint16_t instruction)
   PC = GPR[base_r];
 }
 
-void trap (uint16_t instruction)
-{
-  trap_vect = instruction & 0xFF;
-
-  trap_vect = sign_extend (trap_vect, 16);
-
-  GPR[7] = PC;  
-  PC = mem_read(trap_vect);
-}
-
 void and (uint16_t instruction)
 {
  uint16_t dest = (instruction >> 9) & 0x7;
@@ -246,7 +294,7 @@ void and (uint16_t instruction)
 
 }
 
-void not (uint16_t instructions)
+void not (uint16_t instruction)
 {
    uint16_t dest = (instruction >> 9) & 0x7;
    uint16_t src = (instruction >> 6) & 0x7;
@@ -297,8 +345,6 @@ void trap_in ()
 void trap_putsp()
 {
   uint16_t *c = memory + GPR[0];
-  uint16_t *c1 = *c & 0xFF;
-  uint16_t *c2 = *c >> 8;
 
   while (*c) 
   {
