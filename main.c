@@ -15,6 +15,8 @@
 
 
 void read_image_file (FILE* file);
+int read_image(const char* image_path)
+
 void to_big_endian (uint16_t x);
 
 
@@ -161,6 +163,15 @@ void read_image_file (FILE* file)
     to_big_endian (*p);
     p++;
   }
+}
+
+int read_image(const char* image_path)
+{
+    FILE* file = fopen(image_path, "rb");
+    if (!file) { return 0; };
+    read_image_file(file);
+    fclose(file);
+    return 1;
 }
 
 void to_big_endian (uint16_t x)
