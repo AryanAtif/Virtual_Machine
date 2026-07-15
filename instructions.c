@@ -248,7 +248,7 @@ void jsr (uint16_t instruction)
  if (is_label)
  {
     uint16_t pc_offset = instruction & 0x7FF;
-    pc_offset = sign_extend(pc_offset, 16);
+    pc_offset = sign_extend(pc_offset, 11);
     PC = PC + pc_offset;
  }
  else 
