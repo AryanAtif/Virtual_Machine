@@ -144,8 +144,7 @@ void ld (uint16_t instruction)
   // Get PCOFFSET9
   uint16_t pc_offset = instruction & 0x1FF; 
 
-  // we need to sign extend pcoffset (9-bit) to 16-bits
-  pc_offset = sign_extend(pc_offset, 16);
+  pc_offset = sign_extend(pc_offset, 9);
 
   int to_read = mem_read(PC + pc_offset);
 
@@ -161,7 +160,7 @@ void ldr (uint16_t instruction)
   uint16_t base_r = (instruction >> 6) & 0x7;
   uint16_t offset = instruction & 0x3F; 
 
-  offset = sign_extend(offset, 16);
+  offset = sign_extend(offset, 6);
 
   GPR[dest] = mem_read (GPR[base_r] + offset);
 
@@ -173,7 +172,7 @@ void lea (uint16_t instruction)
   uint16_t dest = (instruction >> 9) & 0x7;
   uint16_t pc_offset = instruction & 0x7F; 
 
-  pc_offset = sign_extend(pc_offset, 16);
+  pc_offset = sign_extend(pc_offset, 9);
 
   GPR[dest] = PC + pc_offset;
 }
@@ -208,11 +207,9 @@ void st (uint16_t instruction)
   uint16_t src1 = (instruction >> 9) & 0x7;
   uint16_t pc_offset = instruction & 0x1FF;
 
-  pc_offset = sign_extend(pc_offset, 16);
+  pc_offset = sign_extend(pc_offset, 9);
 
   mem_write (PC + pc_offset,  GPR[src1]);
-
-  set_flag(src1);
 }
 
 void str (uint16_t instruction)
@@ -221,10 +218,9 @@ void str (uint16_t instruction)
   uint16_t base_r = (instruction >> 6) & 0x7;
   uint16_t offset = instruction & 0x3F;
 
-  offset = sign_extend(offset, 16);
+  offset = sign_extend(offset, 6);
 
   mem_write (GPR[base_r] + offset,  GPR[src1]);
-  set_flag(src1);
 }
 
 void sti (uint16_t instruction)
@@ -232,13 +228,11 @@ void sti (uint16_t instruction)
   uint16_t src = (instruction >> 9) & 0x7;
   uint16_t pc_offset = instruction & 0x1FF; 
 
-  pc_offset = sign_extend(pc_offset, 16);
+  pc_offset = sign_extend(pc_offset, 9);
 
   int mem_to_read = mem_read(PC + pc_offset);
 
   mem_write (mem_to_read,  GPR[src]); 
-
-  set_flag(src);
 }
 
 void jsr (uint16_t instruction)
