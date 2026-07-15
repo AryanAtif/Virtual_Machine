@@ -191,7 +191,7 @@ void br (uint16_t instruction)
   if (is_flag_set)
   {
     uint16_t pc_offset = instruction & 0x1FF;
-    pc_offset = sign_extend(pc_offset, 16);
+    pc_offset = sign_extend(pc_offset, 9);
 
     PC = pc_offset;
   }
