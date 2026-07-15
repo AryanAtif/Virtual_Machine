@@ -107,27 +107,17 @@ void add (uint16_t instruction)
   bool is_imm = (instruction >> 5) & 1;                                        
   uint16_t src2;
 
-  if ((instruction >> 5) & 1)
+  if (is_imm)
   { // if there's an immediate value
     src2 = instruction & 0x1F;
+    src2 = sign_extend(src2, 5);
+    GPR[dest] = GPR[src1] + src2; 
   }
   else
   {
-    src2 = instruction & 0xF;
-  }
-
-  GPR [src1] = sign_extend (GPR[src1], 5);
-
-  if (is_imm) // if src2 is an immediate value
-  {
-    GPR[dest] = GPR[src1] + src2; 
-  }
-  else 
-  {
-    GPR [src2] = sign_extend (GPR[src2], 5);
+    src2 = instruction & 0x7;
     GPR[dest] = GPR [src1] + GPR[src2];
   }
-
   set_flag(dest);
 }
 
@@ -281,7 +271,7 @@ void and (uint16_t instruction)
 
  if ((instruction >> 5) & 1) // if there's an immediate value in the instruction
  {
-   uint16_t imm = instruction & 0x1F;
+   uint16_t imm = sign_extend (instruction & 0x1F, 5);
    GPR[dest] = GPR[src1] & imm; 
  }
  else

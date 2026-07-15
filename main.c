@@ -153,33 +153,33 @@ int main (int argc, char* argv[])
         break;
       
       case OP_TRAP:
-		switch (instruction & 0xff)
-		{
-		  case TRAP_GETC:
-		    trap_getc();	
-		    break;
 
-		  case TRAP_OUT:
-		    trap_out();
-		    break;
+        switch (instruction & 0xff)
+        {
+          case TRAP_GETC:
+            trap_getc();	
+            break;
 
-		  case TRAP_PUTS:
-		    trap_puts();
-		    break;
+          case TRAP_OUT:
+            trap_out();
+            break;
 
-		  case TRAP_IN:
-		    trap_in();
-		    break;
+          case TRAP_PUTS:
+            trap_puts();
+            break;
 
-		  case TRAP_PUTSP:
-		    trap_putsp();
-		    break;
+          case TRAP_IN:
+            trap_in();
+            break;
 
-		  case TRAP_HALT:
-		    trap_halt();
-		    break;
-		}
-        break;
+          case TRAP_PUTSP:
+            trap_putsp();
+            break;
+
+          case TRAP_HALT:
+            trap_halt();
+            break;
+        }
       
       case OP_RES: /* The reserved OPCODES */
       case OP_RTI: 
